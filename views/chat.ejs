@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	.play{
+		position :fixed;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		background-color: #ccc;
+		width: 100%;
+	}
+	.play input{
+		font-size: 30px;
+	}
+	.play input[type=text]{
+		width: 100%
+	}
+	</style>
+</head>
+<body>
+<h1>小小聊天室-><span id="username"><%=username%></span></h1>
+<div>
+	<ul class="list">
+		
+	</ul>
+</div>
+<div class="play">
+	<input type="text" id="content" />
+	
+
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/jquery-1.12.3.min.js"></script>
+
+<script type="text/javascript"> 
+var socket=io();
+$("#content").keydown(function(e){
+			if(e.keyCode == 13){
+				//把文本框的内容上传：
+				socket.emit("liaotian",{
+					"content" : $("#content").val(),
+					"user" : $("#username").html()
+				});
+				$(this).val("");
+			}
+		});
+socket.on("liaotian",function(msg){
+$(".list").prepend("<li><b>"+msg.user+":</b>"+msg.content+"</li>")
+})
+</script>
+</body>
+</html> 
