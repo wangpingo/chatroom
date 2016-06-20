@@ -1,4 +1,6 @@
-	var express=require('express');
+//zhe shi  app
+
+var express=require('express');
 	var app=express();
 	//socket.io公式
 	var http=require('http').Server(app);
